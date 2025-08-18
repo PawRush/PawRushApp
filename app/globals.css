@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #ffffff;
+    --secondary: #f6f6f6;
+    --accent: #000000;
+    --text: #000000;
+    --text-secondary: #5e5e5e;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--primary);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+}
+
+@layer components {
+  .glass-card {
+    background: #ffffff;
+    border: 1px solid #e6e6e6;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .glass-card-hover {
+    transition: all 0.3s ease;
+  }
+
+  .glass-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  .btn-glass {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: #000000;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-primary:hover {
+    background: #333333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-secondary {
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #e6e6e6;
+  }
+
+  .btn-secondary:hover {
+    background: #f6f6f6;
+    transform: translateY(-1px);
+  }
+
+  .bg-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .shape {
+    position: absolute;
+    font-size: 4rem;
+    color: #e6e6e6;
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .shape-1 {
+    font-size: 6rem;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+    animation: floatRight 16s ease-in-out infinite;
+  }
+
+  .shape-2 {
+    font-size: 3rem;
+    bottom: 15%;
+    left: 50%;
+    animation-delay: 4s;
+    animation: floatRight 24s ease-in-out infinite;
+  }
+
+  .shape-3 {
+    font-size: 4rem;
+    top: 60%;
+    right: 10%;
+    animation-delay: 2s;
+    animation: floatRight 12s ease-in-out infinite;
+  }
+
+  @keyframes floatRight {
+
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+      transform: translateY(-50px) rotate(90deg);
+    }
+  }
+
+  @keyframes floatLeft {
+
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+      transform: translateY(-50px) rotate(-90deg);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.1);
+    }
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(to right, #000000, #333333);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-open-sans {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .text-text {
+    color: #000000;
+  }
+
+  .text-text-secondary {
+    color: #5e5e5e;
+  }
+
+  .text-accent {
+    color: #000000;
+  }
+
+  .bg-primary {
+    background-color: #ffffff;
+  }
+
+  .bg-secondary {
+    background-color: #f6f6f6;
+  }
+
+  .bg-accent {
+    background-color: #000000;
+  }
+}
