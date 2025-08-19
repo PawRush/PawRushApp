@@ -31,7 +31,7 @@ Connect with trusted pet care professionals in your neighborhood. Find and book 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/PawDash/PawDash
+   git clone https://github.com/PawDash/PawDashApp
    cd pawdash
    ```
 
