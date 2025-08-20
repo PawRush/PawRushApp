@@ -1,40 +1,87 @@
 #!/bin/bash
 
-# Remove all S3 buckets that start with "pawdash"
-for bucket in $(aws s3api list-buckets --query "Buckets[?starts_with(Name, 'pawdash')].Name" --output text); do
-  echo "Removing bucket: $bucket"
-  aws s3 rm "s3://$bucket" --recursive
-  aws s3api delete-bucket --bucket "$bucket"
+# Parse arguments
+DRY_RUN=false
+PREFIX=""
+
+for arg in "$@"; do
+  case $arg in
+    --dry-run)
+      DRY_RUN=true
+      shift
+      ;;
+    *)
+      if [ -z "$PREFIX" ]; then
+        PREFIX="$arg"
+      fi
+      shift
+      ;;
+  esac
 done
 
-# Remove all CodePipelines that start with "pawdash"
-for pipeline in $(aws codepipeline list-pipelines --query "pipelines[?starts_with(name, 'pawdash')].name" --output text); do
-  echo "Removing pipeline: $pipeline"
-  aws codepipeline delete-pipeline --name "$pipeline"
+# Set default prefix if not provided
+PREFIX="${PREFIX:-pawdash}"
+
+echo "Using prefix: $PREFIX"
+if [ "$DRY_RUN" = true ]; then
+  echo "DRY RUN MODE - No resources will be deleted"
+fi
+
+# Remove all S3 buckets that start with the prefix
+for bucket in $(aws s3api list-buckets --query "Buckets[?starts_with(Name, '$PREFIX')].Name" --output text); do
+  if [ "$DRY_RUN" = true ]; then
+    echo "[DRY RUN] Would remove bucket: $bucket"
+  else
+    echo "Removing bucket: $bucket"
+    aws s3 rm "s3://$bucket" --recursive
+    aws s3api delete-bucket --bucket "$bucket"
+  fi
 done
 
-# Remove all CodeBuild projects that start with "pawdash"
-for project in $(aws codebuild list-projects --query "projects[?starts_with(@, 'pawdash')]" --output text); do
-  echo "Removing CodeBuild project: $project"
-  aws codebuild delete-project --name "$project"
+# Remove all CodePipelines that start with the prefix
+for pipeline in $(aws codepipeline list-pipelines --query "pipelines[?starts_with(name, '$PREFIX')].name" --output text); do
+  if [ "$DRY_RUN" = true ]; then
+    echo "[DRY RUN] Would remove pipeline: $pipeline"
+  else
+    echo "Removing pipeline: $pipeline"
+    aws codepipeline delete-pipeline --name "$pipeline"
+  fi
 done
 
-# Remove all Amplify apps that start with "pawdash"
-for app in $(aws amplify list-apps --query "apps[?starts_with(name, 'pawdash')].appId" --output text); do
-  echo "Removing Amplify app: $app"
-  aws amplify delete-app --app-id "$app"
+# Remove all CodeBuild projects that start with the prefix
+for project in $(aws codebuild list-projects --query "projects[?starts_with(@, '$PREFIX')]" --output text); do
+  if [ "$DRY_RUN" = true ]; then
+    echo "[DRY RUN] Would remove CodeBuild project: $project"
+  else
+    echo "Removing CodeBuild project: $project"
+    aws codebuild delete-project --name "$project"
+  fi
 done
 
-# Remove all IAM roles that start with "pawdash"
-for role in $(aws iam list-roles --query "Roles[?starts_with(RoleName, 'pawdash')].RoleName" --output text); do
-  echo "Removing IAM role: $role"
-  # Detach all policies first
-  for policy in $(aws iam list-attached-role-policies --role-name "$role" --query "AttachedPolicies[].PolicyArn" --output text); do
-    aws iam detach-role-policy --role-name "$role" --policy-arn "$policy"
-  done
-  # Delete inline policies
-  for policy in $(aws iam list-role-policies --role-name "$role" --query "PolicyNames[]" --output text); do
-    aws iam delete-role-policy --role-name "$role" --policy-name "$policy"
-  done
-  aws iam delete-role --role-name "$role"
+# Remove all Amplify apps that start with the prefix
+for app in $(aws amplify list-apps --query "apps[?starts_with(name, '$PREFIX')].appId" --output text); do
+  if [ "$DRY_RUN" = true ]; then
+    echo "[DRY RUN] Would remove Amplify app: $app"
+  else
+    echo "Removing Amplify app: $app"
+    aws amplify delete-app --app-id "$app"
+  fi
+done
+
+# Remove all IAM roles that start with the prefix
+for role in $(aws iam list-roles --query "Roles[?starts_with(RoleName, '$PREFIX')].RoleName" --output text); do
+  if [ "$DRY_RUN" = true ]; then
+    echo "[DRY RUN] Would remove IAM role: $role"
+  else
+    echo "Removing IAM role: $role"
+    # Detach all policies first
+    for policy in $(aws iam list-attached-role-policies --role-name "$role" --query "AttachedPolicies[].PolicyArn" --output text); do
+      aws iam detach-role-policy --role-name "$role" --policy-arn "$policy"
+    done
+    # Delete inline policies
+    for policy in $(aws iam list-role-policies --role-name "$role" --query "PolicyNames[]" --output text); do
+      aws iam delete-role-policy --role-name "$role" --policy-name "$policy"
+    done
+    aws iam delete-role --role-name "$role"
+  fi
 done
