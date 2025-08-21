@@ -69,7 +69,7 @@ for app in $(aws amplify list-apps --query "apps[?starts_with(name, '$PREFIX')].
 done
 
 # Remove EventBridge rules that contain the prefix in their name
-for rule in $(aws events list-rules --query "Rules[?starts_with(Name, '$PREFIX')]" --output text); do
+for rule in $(aws events list-rules --query "Rules[?starts_with(Name, '$PREFIX')].Name" --output text); do
   if [ "$DRY_RUN" = true ]; then
     echo "[DRY RUN] Would remove EventBridge rule: $rule"
   else
