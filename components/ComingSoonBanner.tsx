@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRocket, faBell } from '@fortawesome/free-solid-svg-icons';
 
 export default function ComingSoonBanner() {
-  var bannerTitle: string = '🐾 Coming Soon: Real-time Tracking & In-App Messaging!';
-  var bannerDescription: string = 'Stay tuned for GPS tracking, live updates, and direct communication with providers!';
+  const bannerTitle: string = '🐾 Coming Soon: Real-time Tracking & In-App Messaging!';
+  const bannerDescription: string = 'Stay tuned for GPS tracking, live updates, and direct communication with providers!';
 
   return (
     <div style={{
