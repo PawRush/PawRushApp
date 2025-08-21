@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRocket, faBell } from '@fortawesome/free-solid-svg-icons';
 
 export default function ComingSoonBanner() {
+  var bannerTitle: string = '🐾 Coming Soon: Real-time Tracking & In-App Messaging!';
+  var bannerDescription: string = 'Stay tuned for GPS tracking, live updates, and direct communication with providers!';
+
   return (
     <div style={{
       position: 'sticky',
@@ -13,54 +16,95 @@ export default function ComingSoonBanner() {
       marginBottom: '2rem'
     }}>
       <div className="glass-card" style={{
-        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.15) 100%)',
-        border: '1px solid rgba(59, 130, 246, 0.2)',
+        background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f1f3f4 100%)',
+        border: '2px solid #000000',
         borderRadius: '16px',
-        padding: '1rem 1.5rem',
+        padding: '1.25rem 1.5rem',
         textAlign: 'center',
-        backdropFilter: 'blur(20px)',
-        boxShadow: '0 8px 32px rgba(37, 99, 235, 0.1)',
-        animation: 'fadeInDown 0.6s ease-out'
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08)',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
         <div style={{
+          position: 'absolute',
+          top: '50%',
+          right: '15px',
+          fontSize: '64px',
+          color: '#000000',
+          transform: 'translateY(-50%) rotate(25deg)',
+          pointerEvents: 'none'
+        }}>🐾</div>
+
+        <div style={{
+          position: 'relative',
+          zIndex: 1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '0.75rem',
-          flexWrap: 'wrap'
+          flexWrap: 'wrap',
+          marginBottom: '0.5rem'
         }}>
-          <FontAwesomeIcon 
-            icon={faRocket} 
-            style={{ 
-              color: '#2563eb', 
-              fontSize: '1.25rem',
-              animation: 'pulse 2s infinite'
-            }} 
-          />
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '32px',
+            height: '32px',
+            backgroundColor: '#000000',
+            borderRadius: '50%'
+          }}>
+            <FontAwesomeIcon
+              icon={faRocket}
+              style={{
+                color: '#ffffff',
+                fontSize: '0.875rem',
+                transform: 'rotate(-45deg)'
+              }}
+            />
+          </div>
+          
           <span style={{
             fontFamily: "'Inter', sans-serif",
-            fontWeight: 600,
-            color: '#1e3a8a',
-            fontSize: '1.125rem'
+            fontWeight: 700,
+            color: '#000000',
+            fontSize: '1.125rem',
+            letterSpacing: '-0.025em'
           }}>
-            🐾 Coming Soon: Real-time Tracking & In-App Messaging!
+            {bannerTitle}
           </span>
-          <FontAwesomeIcon 
-            icon={faBell} 
-            style={{ 
-              color: '#2563eb', 
-              fontSize: '1rem',
-              opacity: 0.8
-            }} 
-          />
+          
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '28px',
+            height: '28px',
+            backgroundColor: '#f6f6f6',
+            border: '2px solid #000000',
+            borderRadius: '50%'
+          }}>
+            <FontAwesomeIcon
+              icon={faBell}
+              style={{
+                color: '#000000',
+                fontSize: '0.75rem'
+              }}
+            />
+          </div>
         </div>
+
         <p style={{
-          margin: '0.5rem 0 0 0',
+          position: 'relative',
+          zIndex: 1,
+          margin: '0',
           fontSize: '0.875rem',
-          color: '#3b82f6',
-          opacity: 0.9
+          color: '#5e5e5e',
+          fontFamily: "'Open Sans', sans-serif",
+          fontWeight: 500,
+          lineHeight: '1.4'
         }}>
-          Stay tuned for GPS tracking, live updates, and direct communication with providers!
+          {bannerDescription}
         </p>
       </div>
     </div>
