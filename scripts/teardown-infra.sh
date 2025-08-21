@@ -68,6 +68,21 @@ for app in $(aws amplify list-apps --query "apps[?starts_with(name, '$PREFIX')].
   fi
 done
 
+# Remove EventBridge rules that contain the prefix in their name
+for rule in $(aws events list-rules --query "Rules[?starts_with(Name, '$PREFIX')]" --output text); do
+  if [ "$DRY_RUN" = true ]; then
+    echo "[DRY RUN] Would remove EventBridge rule: $rule"
+  else
+    echo "Removing EventBridge rule: $rule"
+    # Remove all targets first
+    for target_id in $(aws events list-targets-by-rule --rule "$rule" --query "Targets[].Id" --output text); do
+      aws events remove-targets --rule "$rule" --ids "$target_id"
+    done
+    # Delete the rule
+    aws events delete-rule --name "$rule"
+  fi
+done
+
 # Remove all IAM roles that start with the prefix
 for role in $(aws iam list-roles --query "Roles[?starts_with(RoleName, '$PREFIX')].RoleName" --output text); do
   if [ "$DRY_RUN" = true ]; then
