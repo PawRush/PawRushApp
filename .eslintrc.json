@@ -1,6 +1,7 @@
 {
   "extends": "next",
   "rules": {
+    "no-var": "error",
     "prefer-const": "error",
     "no-unused-vars": "off",
     "react/no-unescaped-entities": "off"
