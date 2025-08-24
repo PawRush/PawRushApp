@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex items-center gap-2">
             <FontAwesomeIcon icon={faPaw} className="text-lg text-accent" />
-            <span className="font-inter text-lg font-bold text-text">PawDash</span>
+            <span className="font-inter text-lg font-bold text-text">PawRush</span>
           </div>
 
           {/* Links */}
@@ -29,7 +29,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-text-secondary text-sm">
-            &copy; 2025 PawDash
+            &copy; 2025 PawRush
           </p>
         </div>
       </div>

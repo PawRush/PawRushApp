@@ -45,7 +45,7 @@ export default function Header() {
               icon={faPaw} 
               className="text-xl text-accent" 
             />
-            <span className="font-inter text-xl font-bold text-text">PawDash</span>
+            <span className="font-inter text-xl font-bold text-text">PawRush</span>
           </Link>
 
           {/* Desktop Navigation */}

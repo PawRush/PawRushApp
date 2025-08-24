@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import BookingDetail from '../../components/BookingDetail';
 
-export default function BookingsPage() {
+function BookingContent() {
   const searchParams = useSearchParams();
   const [bookingId, setBookingId] = useState<string | null>(null);
 
@@ -30,4 +30,12 @@ export default function BookingsPage() {
   }
 
   return <BookingDetail bookingId={bookingId} />;
+}
+
+export default function BookingsPage() {
+  return (
+    <Suspense fallback={<div className="max-w-4xl mx-auto px-4 py-8">Loading...</div>}>
+      <BookingContent />
+    </Suspense>
+  );
 }

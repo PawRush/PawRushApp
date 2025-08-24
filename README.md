@@ -1,4 +1,4 @@
-# PawDash 🐾
+# PawRush 🐾
 
 Connect with trusted pet care professionals in your neighborhood. Find and book qualified providers for dog walking, pet sitting, grooming, and veterinary assistance—all through one convenient service.
 
@@ -31,8 +31,8 @@ Connect with trusted pet care professionals in your neighborhood. Find and book 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/PawDash/PawDash
-   cd pawdash
+   git clone https://github.com/PawRush/PawRushApp
+   cd PawRushApp
    ```
 
 2. **Install dependencies**
