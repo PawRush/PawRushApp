@@ -6,11 +6,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 
 export const metadata: Metadata = {
-  title: 'PawRush - Connect with Trusted Pet Care Providers',
-  description: 'Find qualified pet care providers for walking, sitting, grooming, and vet visits. Connect with trusted professionals in your area.',
-  keywords: 'pet care, dog walking, pet sitting, pet grooming, veterinary visits, pet services',
+  title: 'PawRush 🐾 | Premium Pet Care Services Near You',
+  description: 'Discover trusted pet care professionals in your neighborhood. Book dog walking, pet sitting, grooming, and veterinary assistance—all in one place. Your pet deserves the best!',
+  keywords: 'pet care, dog walking, pet sitting, pet grooming, veterinary visits, pet services, local pet care, trusted pet sitters, professional dog walkers',
   authors: [{ name: 'PawRush Team' }],
   viewport: 'width=device-width, initial-scale=1',
+  openGraph: {
+    title: 'PawRush 🐾 | Premium Pet Care Services Near You',
+    description: 'Connect with trusted pet care professionals for walking, sitting, grooming, and vet visits.',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
