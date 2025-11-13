@@ -1,20 +1,37 @@
 #!/usr/bin/env node
-import * as cdk from 'aws-cdk-lib';
-import { InfraStack } from '../lib/infra-stack';
+import * as cdk from "aws-cdk-lib";
+import { execSync } from "child_process";
+import { FrontendStack } from "../lib/stacks/frontend-stack";
 
 const app = new cdk.App();
-new InfraStack(app, 'InfraStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
 
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+// Environment detection
+const getDefaultEnvironment = (): string => {
+  try {
+    const username = process.env.USER || execSync('whoami').toString().trim();
+    return `preview-${username}`;
+  } catch {
+    return 'preview-local';
+  }
+};
 
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
+const environment =
+  app.node.tryGetContext("environment") || getDefaultEnvironment();
+const account = process.env.CDK_DEFAULT_ACCOUNT;
+const region = process.env.CDK_DEFAULT_REGION || "us-east-1";
 
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+// Build output path (Next.js static export outputs to 'out' directory)
+const buildOutputPath = app.node.tryGetContext("buildPath") || "../out";
+
+// Create frontend stack
+new FrontendStack(app, `PawRushFrontend-${environment}`, {
+  env: { account, region },
+  environment,
+  buildOutputPath,
+  description: `PawRush static website hosting - ${environment}`,
 });
+
+// Global tags
+cdk.Tags.of(app).add("Project", "PawRush");
+cdk.Tags.of(app).add("ManagedBy", "CDK");
+cdk.Tags.of(app).add("Environment", environment);
