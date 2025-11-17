@@ -1,0 +1,61 @@
+version: 0.2
+
+env:
+  variables:
+    NPM_CONFIG_PRODUCTION: "false"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "Installing CDK dependencies..."
+      - (cd infra && npm ci --no-progress)
+
+  build:
+    commands:
+      - echo "Deploying frontend:$ENVIRONMENT"
+      - echo "Copying frontend build artifacts..."
+      - mkdir -p dist
+      - cp -r $CODEBUILD_SRC_DIR_FrontendBuildOutput/* dist/
+      - ls -la dist/
+      - echo "Building CDK infrastructure..."
+      - (cd infra && npm run build)
+      - echo "Deploying CDK stack..."
+      - |
+        (cd infra && npx cdk deploy PawRushFrontend-$ENVIRONMENT \
+          --context environment=$ENVIRONMENT \
+          --context withAssets=false \
+          --require-approval never)
+      - echo "Getting stack outputs..."
+      - |
+        BUCKET=$(aws cloudformation describe-stacks \
+          --stack-name PawRushFrontend-$ENVIRONMENT \
+          --query 'Stacks[0].Outputs[?OutputKey==`BucketName`].OutputValue' \
+          --output text)
+      - |
+        DIST_ID=$(aws cloudformation describe-stacks \
+          --stack-name PawRushFrontend-$ENVIRONMENT \
+          --query 'Stacks[0].Outputs[?OutputKey==`DistributionId`].OutputValue' \
+          --output text)
+      - |
+        WEBSITE_URL=$(aws cloudformation describe-stacks \
+          --stack-name PawRushFrontend-$ENVIRONMENT \
+          --query 'Stacks[0].Outputs[?OutputKey==`WebsiteURL`].OutputValue' \
+          --output text)
+      - echo "Syncing files to S3 bucket:$BUCKET"
+      - aws s3 sync dist/ s3://$BUCKET/ --delete
+      - echo "Creating CloudFront invalidation..."
+      - aws cloudfront create-invalidation --distribution-id $DIST_ID --paths "/*"
+      - echo "Deployment complete!"
+      - echo "Website URL:$WEBSITE_URL"
+      - echo "WEBSITE_URL=$WEBSITE_URL" > frontend-outputs.env
+
+artifacts:
+  files:
+    - "frontend-outputs.env"
+  name: FrontendDeployOutput
+
+cache:
+  paths:
+    - "~/.npm/**/*"

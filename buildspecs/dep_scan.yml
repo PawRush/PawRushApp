@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+
+  build:
+    commands:
+      - echo "Installing dependencies..."
+      - npm ci --prefer-offline --no-progress
+      - echo "Running dependency audit..."
+      - npm audit --json > npm-audit-results.json || true
+      - echo "Audit results:"
+      - cat npm-audit-results.json
+
+artifacts:
+  files:
+    - "npm-audit-results.json"
+  name: DepScanOutput
+
+cache:
+  paths:
+    - "~/.npm/**/*"

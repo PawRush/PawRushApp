@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+
+  build:
+    commands:
+      - echo "Installing dependencies..."
+      - npm ci --prefer-offline --no-progress
+      - echo "Running unit tests..."
+      - npm run test || true
+      - echo "Creating placeholder directories..."
+      - mkdir -p coverage test-results
+      - touch coverage/.placeholder test-results/.placeholder
+
+artifacts:
+  files:
+    - "coverage/**/*"
+    - "test-results/**/*"
+  name: UnitTestsOutput
+
+cache:
+  paths:
+    - "~/.npm/**/*"

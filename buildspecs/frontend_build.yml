@@ -1,0 +1,34 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+
+  build:
+    commands:
+      - echo "Installing dependencies..."
+      - npm ci --prefer-offline --no-progress
+      - echo "Building frontend..."
+      - npm run build
+      - echo "Normalizing build output to dist/ directory..."
+      - |
+        if [ -d "out" ]; then
+          mv out dist
+        elif [ -d "build" ]; then
+          mv build dist
+        elif [ ! -d "dist" ]; then
+          echo "Error: No build output found"
+          exit 1
+        fi
+      - echo "Build output:"
+      - ls -la dist/
+
+artifacts:
+  files:
+    - "dist/**/*"
+  name: FrontendBuildOutput
+
+cache:
+  paths:
+    - "~/.npm/**/*"
