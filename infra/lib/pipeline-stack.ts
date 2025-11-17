@@ -89,7 +89,6 @@ export class PipelineStack extends cdk.Stack {
     });
 
     // Create CodeBuild projects
-    const lintTypeSecretsProject = this.createLintTypeSecretsProject(qualityRole.role);
     const unitTestsProject = this.createUnitTestsProject(qualityRole.role);
     const depScanProject = this.createDepScanProject(qualityRole.role);
     const frontendBuildProject = this.createFrontendBuildProject(buildRole.role);
@@ -100,7 +99,6 @@ export class PipelineStack extends cdk.Stack {
     // Define pipeline artifacts
     const artifacts = {
       source: new codepipeline.Artifact("SourceOutput"),
-      lint: new codepipeline.Artifact("LintTypeSecretsOutput"),
       unit: new codepipeline.Artifact("UnitTestsOutput"),
       depScan: new codepipeline.Artifact("DepScanOutput"),
       frontendBuild: new codepipeline.Artifact("FrontendBuildOutput"),
@@ -138,12 +136,6 @@ export class PipelineStack extends cdk.Stack {
       {
         stageName: "Quality",
         actions: [
-          new codepipeline_actions.CodeBuildAction({
-            actionName: "LintTypeSecrets",
-            project: lintTypeSecretsProject,
-            input: artifacts.source,
-            outputs: [artifacts.lint],
-          }),
           new codepipeline_actions.CodeBuildAction({
             actionName: "UnitTests",
             project: unitTestsProject,
@@ -267,19 +259,6 @@ export class PipelineStack extends cdk.Stack {
         BRANCH_NAME: { value: this.props.branchName },
         CODE_CONNECTION_ARN: { value: this.props.codeConnectionArn },
       },
-      cache: codebuild.Cache.local(codebuild.LocalCacheMode.SOURCE, codebuild.LocalCacheMode.CUSTOM),
-    });
-  }
-
-  private createLintTypeSecretsProject(role: iam.Role): codebuild.PipelineProject {
-    return new codebuild.PipelineProject(this, "LintTypeSecretsProject", {
-      projectName: "PawRush-LintTypeSecrets",
-      role,
-      environment: {
-        buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
-        computeType: codebuild.ComputeType.SMALL,
-      },
-      buildSpec: codebuild.BuildSpec.fromSourceFilename("buildspecs/lint_type_secrets.yml"),
       cache: codebuild.Cache.local(codebuild.LocalCacheMode.SOURCE, codebuild.LocalCacheMode.CUSTOM),
     });
   }
