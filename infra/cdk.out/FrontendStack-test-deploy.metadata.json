@@ -1,0 +1,309 @@
+{
+  "/FrontendStack-test-deploy": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/tmp/deployment-agent-repos/infra/bin/infra.ts:17:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/WebsiteBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "bucketName": "*",
+        "publicReadAccess": false,
+        "blockPublicAccess": "*",
+        "removalPolicy": "destroy",
+        "autoDeleteObjects": true,
+        "encryption": "S3_MANAGED",
+        "enforceSSL": true
+      }
+    }
+  ],
+  "/FrontendStack-test-deploy/Custom::S3AutoDeleteObjectsCustomResourceProvider": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+      "data": true
+    }
+  ],
+  "/FrontendStack-test-deploy/SpaRewriteFunction": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "functionName": "*",
+        "comment": "*",
+        "runtime": "*",
+        "code": "*"
+      }
+    }
+  ],
+  "/FrontendStack-test-deploy/Distribution": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "comment": "*",
+        "defaultBehavior": {
+          "origin": "*",
+          "viewerProtocolPolicy": "redirect-to-https",
+          "allowedMethods": "*",
+          "cachedMethods": "*",
+          "cachePolicy": "*",
+          "compress": true,
+          "functionAssociations": [
+            {
+              "function": "*",
+              "eventType": "viewer-request"
+            }
+          ]
+        },
+        "defaultRootObject": "*",
+        "errorResponses": [
+          {
+            "httpStatus": "*",
+            "responseHttpStatus": "*",
+            "responsePagePath": "*",
+            "ttl": "*"
+          },
+          {
+            "httpStatus": "*",
+            "responseHttpStatus": "*",
+            "responsePagePath": "*",
+            "ttl": "*"
+          }
+        ],
+        "priceClass": "PriceClass_100",
+        "enableIpv6": true,
+        "httpVersion": "http2and3",
+        "minimumProtocolVersion": "TLSv1.2_2021"
+      }
+    }
+  ],
+  "/FrontendStack-test-deploy/BucketName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BucketName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new FrontendStack (/tmp/deployment-agent-repos/infra/lib/stacks/frontend-stack.ts:110:5)",
+        "<anonymous> (/tmp/deployment-agent-repos/infra/bin/infra.ts:17:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/DistributionId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DistributionId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new FrontendStack (/tmp/deployment-agent-repos/infra/lib/stacks/frontend-stack.ts:116:5)",
+        "<anonymous> (/tmp/deployment-agent-repos/infra/bin/infra.ts:17:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/DistributionDomainName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DistributionDomainName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new FrontendStack (/tmp/deployment-agent-repos/infra/lib/stacks/frontend-stack.ts:122:5)",
+        "<anonymous> (/tmp/deployment-agent-repos/infra/bin/infra.ts:17:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/WebsiteBucket/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "WebsiteBucket75C24D94"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new FrontendStack (/tmp/deployment-agent-repos/infra/lib/stacks/frontend-stack.ts:22:27)",
+        "<anonymous> (/tmp/deployment-agent-repos/infra/bin/infra.ts:17:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.aws_s3.mixins.BucketAutoDeleteObjects"
+      }
+    }
+  ],
+  "/FrontendStack-test-deploy/WebsiteBucket/Policy": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "bucket": "*"
+      }
+    }
+  ],
+  "/FrontendStack-test-deploy/WebsiteBucket/AutoDeleteObjectsCustomResource": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/FrontendStack-test-deploy/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/SpaRewriteFunction/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SpaRewriteFunction0C4DA631"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new FrontendStack (/tmp/deployment-agent-repos/infra/lib/stacks/frontend-stack.ts:37:32)",
+        "<anonymous> (/tmp/deployment-agent-repos/infra/bin/infra.ts:17:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/Distribution/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Distribution830FAC52"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Distribution2 in aws-cdk-lib...",
+        "new FrontendStack (/tmp/deployment-agent-repos/infra/lib/stacks/frontend-stack.ts:63:26)",
+        "<anonymous> (/tmp/deployment-agent-repos/infra/bin/infra.ts:17:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/WebsiteBucket/Policy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "WebsiteBucketPolicyE10E3262"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new FrontendStack (/tmp/deployment-agent-repos/infra/lib/stacks/frontend-stack.ts:22:27)",
+        "<anonymous> (/tmp/deployment-agent-repos/infra/bin/infra.ts:17:1)"
+      ]
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.aws_s3.mixins.BucketPolicyStatements"
+      }
+    }
+  ],
+  "/FrontendStack-test-deploy/WebsiteBucket/AutoDeleteObjectsCustomResource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "WebsiteBucketAutoDeleteObjectsCustomResource8750E461"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FrontendStack-test-deploy/Distribution/Origin1/S3OriginAccessControl": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/FrontendStack-test-deploy/Distribution/Origin1/S3OriginAccessControl/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DistributionOrigin1S3OriginAccessControlEB606076"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Distribution2 in aws-cdk-lib...",
+        "new FrontendStack (/tmp/deployment-agent-repos/infra/lib/stacks/frontend-stack.ts:63:26)",
+        "<anonymous> (/tmp/deployment-agent-repos/infra/bin/infra.ts:17:1)",
+        "...node internals..."
+      ]
+    }
+  ]
+}
