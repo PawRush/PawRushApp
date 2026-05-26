@@ -1,17 +1,29 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as Infra from '../lib/infra-stack';
+import * as cdk from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import { FrontendStack } from '../lib/frontend-stack';
 
-// example test. To run these tests, uncomment this file along with the
-// example resource in lib/infra-stack.ts
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//     // WHEN
-//   const stack = new Infra.InfraStack(app, 'MyTestStack');
-//     // THEN
-//   const template = Template.fromStack(stack);
+test('FrontendStack creates S3 bucket and CloudFront distribution', () => {
+  const app = new cdk.App({
+    context: { deploymentId: 'test' },
+  });
+  const stack = new FrontendStack(app, 'FrontendStack-test', {
+    stackName: 'FrontendStack-test',
+  });
+  const template = Template.fromStack(stack);
 
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+  // S3 bucket should exist with no public access
+  template.hasResourceProperties('AWS::S3::Bucket', {
+    PublicAccessBlockConfiguration: {
+      BlockPublicAcls: true,
+      BlockPublicPolicy: true,
+      IgnorePublicAcls: true,
+      RestrictPublicBuckets: true,
+    },
+  });
+
+  // CloudFront distribution should exist
+  template.resourceCountIs('AWS::CloudFront::Distribution', 1);
+
+  // CloudFront Function for SPA rewriting
+  template.resourceCountIs('AWS::CloudFront::Function', 1);
 });

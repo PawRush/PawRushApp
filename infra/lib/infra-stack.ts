@@ -1,16 +1,4 @@
-import * as cdk from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
-
-export class InfraStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
-
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'InfraQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
-  }
-}
+// This file is intentionally empty.
+// InfraStack has been replaced by FrontendStack in lib/frontend-stack.ts
+// The entry point bin/infra.ts no longer references InfraStack.
+export {};
