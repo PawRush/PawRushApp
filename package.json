@@ -7,7 +7,13 @@
     "build": "next build",
     "export": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sandbox": "tsx aws-blocks/scripts/sandbox.ts",
+    "sandbox:destroy": "tsx -C cdk aws-blocks/scripts/sandbox-destroy.ts",
+    "sandbox:console": "tsx aws-blocks/scripts/console.ts",
+    "deploy": "tsx aws-blocks/scripts/deploy.ts",
+    "destroy": "tsx aws-blocks/scripts/destroy.ts",
+    "dev:server": "tsx watch aws-blocks/scripts/server.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -16,7 +22,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "next": "^14",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "@aws-blocks/blocks": "*"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -27,6 +34,13 @@
     "eslint-config-next": "^14",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
-  }
+    "typescript": "^5",
+    "aws-cdk-lib": "^2.257.0",
+    "constructs": "^10.6.0",
+    "tsx": "^4.7.0",
+    "esbuild": "^0.27.1"
+  },
+  "workspaces": [
+    "aws-blocks"
+  ]
 }
